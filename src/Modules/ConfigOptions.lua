@@ -1428,7 +1428,7 @@ Huge sets the radius to 11.
 	{ var = "multiplierAffectedByWarcryBuffDuration", type = "count", label = "# of seconds Affected by a Warcry Buff:", ifMult = "AffectedByWarcryBuffDuration", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:AffectedByWarcryBuffDuration", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "DetonatedMinesRecently", type = "check", label = "Have you Detonated a Mine Recently", ifCond = "DetonatedMinesRecently", apply = function(val, modList, enemyModList)
+	{ var = "DetonatedMinesRecently", type = "check", label = "Have you Detonated a Mine Recently?", ifCond = "DetonatedMinesRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:DetonatedMinesRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierMineDetonatedRecently", type = "count", label = "# of Mines Detonated Recently:", ifMult = "MineDetonatedRecently", implyCond = "DetonatedMinesRecently", apply = function(val, modList, enemyModList)
@@ -1753,7 +1753,7 @@ Huge sets the radius to 11.
 		enemyModList:NewMod("Condition:OnChilledGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyBrittle", type = "check", ifFlag = "inflictBrittle", label = "Is the enemy ^x3F6DB3Brittle?", tooltip = "Hits against ^x3F6DB3Brittle ^7enemies have up to +6% Critical Strike Chance.\nThis option will also allow you to input the effect of ^x3F6DB3Brittle.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyBrittle", type = "check", ifFlag = "inflictBrittle", label = "Is the enemy ^x3F6DB3Brittle?", tooltip = "Hits against ^x3F6DB3Brittle ^7enemies have up to +6% "..colorCodes.CRITICAL.."Critical Strike Chance^7.\nThis option will also allow you to input the effect of ^x3F6DB3Brittle.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Brittle", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:BrittleConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1817,16 +1817,16 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyUnnerved", type = "check", label = "Is the enemy Unnerved?", tooltip = "Unnerved enemies take 10% increased Spell Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Unnerved", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyCriticalWeakness", type = "check", label = "Is the enemy Critically Weak", ifFlag = "ApplyCriticalWeakness", tooltip = "Hits against Critically Weak enemies have up to +10% Critical Strike Chance.\nThis option will also allow you to input the effect of Critical Weakness.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyCriticalWeakness", type = "check", label = "Is the enemy "..colorCodes.CRITICAL.."Critically ^7Weak?", ifFlag = "ApplyCriticalWeakness", tooltip = "Hits against Critically Weak enemies have up to +10% "..colorCodes.CRITICAL.."Critical Strike Chance^7.\nThis option will also allow you to input the effect of Critical Weakness.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:ApplyCriticalWeakness", "FLAG", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyCriticalWeaknessStacks", type = "count", label = "Critical weakness stacks:", ifOption = "conditionEnemyCriticalWeakness", tooltip = "Each stack of critical weakness applies +0.5% to critical strike chance against the affected target", defaultPlaceholderState = 20, apply = function(val, modList, enemyModList)
+	{ var = "enemyCriticalWeaknessStacks", type = "count", label = "Critical weakness stacks:", ifOption = "conditionEnemyCriticalWeakness", tooltip = "Each stack of "..colorCodes.CRITICAL.."critical ^7weakness applies +0.5% to "..colorCodes.CRITICAL.."critical strike chance ^7against the affected target", defaultPlaceholderState = 20, apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("SelfCritChance", "BASE", m_max(m_min(val or 20, 20), 0) / 2, "Critical Weakness", { type = "Condition", var = "ApplyCriticalWeakness" })
 	end },
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "Covered in Ash applies the following to the enemy:\n\t20% increased ^xB97123Fire ^7Damage taken\n\t20% less Movement Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("CoveredInAshEffect", "BASE", 20, "Covered in Ash")
 	end },
-	{ var = "conditionEnemyCoveredInFrost", type = "check", label = "Is the enemy covered in Frost?", tooltip = "Covered in Frost applies the following to the enemy:\n\t20% increased ^x3F6DB3Cold ^7Damage taken\n\t50% less Critical Strike Chance", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyCoveredInFrost", type = "check", label = "Is the enemy covered in Frost?", tooltip = "Covered in Frost applies the following to the enemy:\n\t20% increased ^x3F6DB3Cold ^7Damage taken\n\t50% less "..colorCodes.CRITICAL.."Critical Strike Chance^7", apply = function(val, modList, enemyModList)
 		modList:NewMod("CoveredInFrostEffect", "BASE", 20, "Covered in Frost")
 	end },
 	{ var = "conditionEnemyHasOpenWeakness", type = "check", label = "Does enemy have Open Weakness?", ifCond = "EnemyHasOpenWeakness", apply = function(val, modList, enemyModList)
@@ -2192,8 +2192,8 @@ Huge sets the radius to 11.
 	{ var = "enemyMultiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier percent:", ifFlag = "isPvP", tooltip = "This multiplies the damage of a given skill in pvp, for instance any with damage multiplier specific to pvp (from skill or support or item like sire of shards)", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("MultiplierPvpDamage", "BASE", val, "Config")
 	end },
-	{ var = "enemyCritChance", type = "countAllowZero", label = "Enemy critical strike chance:", defaultPlaceholderState = 5 },
-	{ var = "enemyCritDamage", type = "countAllowZero", label = "Enemy critical strike multiplier:", defaultPlaceholderState = data.monsterConstants["base_critical_hit_damage_bonus"] },
+	{ var = "enemyCritChance", type = "countAllowZero", label = "Enemy "..colorCodes.CRITICAL.."critical strike chance:^7", defaultPlaceholderState = 5 },
+	{ var = "enemyCritDamage", type = "countAllowZero", label = "Enemy "..colorCodes.CRITICAL.."critical strike multiplier:^7", defaultPlaceholderState = data.monsterConstants["base_critical_hit_damage_bonus"] },
 	{ var = "enemyPhysicalDamage", type = "countAllowZero", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet.", defaultPlaceholderState = 7 },
 	{ var = "enemyPhysicalOverwhelm", type = "countAllowZero", label = "Enemy Skill Physical Overwhelm:"},
 	{ var = "enemyLightningDamage", type = "countAllowZero", label = "Enemy Skill ^xADAA47Lightning Damage:"},
